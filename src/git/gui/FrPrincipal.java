@@ -68,10 +68,10 @@ public class FrPrincipal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(LblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,9 +152,11 @@ public class FrPrincipal extends javax.swing.JFrame {
             public String programa = "";
             public int status = 0;
             public int encontrouPrograma = 0;
+            public String nomeIDE;
             public int idPrograma = -1;
             public int instances = 0;
             public int instances1 = 0; 
+            public int contador = 0;
             
             public void run() 
             {       
@@ -163,37 +165,46 @@ public class FrPrincipal extends javax.swing.JFrame {
                 {//Verifica se há programa da lista em aberto
                     while(programa.equals(""))/*Verifica se algum programa esta execução.*/
                     {
-                        for(int contador = 0;contador<4;contador++){
+                        //for(int contador = 0;contador<4;contador++){
+                        while((contador<4)&&programa.equals("")){    
                             programa = verificaProgramaAberto(contador);
                             if(!programa.equals(""))
                             {
                                 encontrouPrograma = 1;
                                 idPrograma = contador;
+                                
                             }
+                            contador = contador+1;
                         }
                     }
+                    contador = 0;//resetando o contador.
                 }
                 else
                 {
                     programa = verificaProgramaAberto(idPrograma);
+                    encontrouPrograma = 1;
                 }
                 
                 if(!programa.equals(""))
                 {                    
-                    switch(idPrograma){
+                    switch(idPrograma)
+                    {
                         case 0:{
-                            LblStatus.setText("Visual Studio Code");
+                            nomeIDE = "Visual Studio Code";
                         }break;
-                        case 1:{
-                            LblStatus.setText("NetBeans 8.2");
-                        }break;
+                      /*  case 1:{
+                            nomeIDE = "NetBeans 8.2";
+                        }break;*/
                         case 2:{
-                            LblStatus.setText("Eclipse");
+                            nomeIDE = "Eclipse";
                         }break;
-                        case 3:{
-                            LblStatus.setText("Calculadora");
+                        case 3:{                          
+                            nomeIDE = "Calculadora";
                         }break;
                     }
+                    
+                    LblStatus.setText(nomeIDE);
+                    
                     try 
                     {    
                         Process processo = Runtime.getRuntime().exec("wmic.exe");
@@ -217,7 +228,7 @@ public class FrPrincipal extends javax.swing.JFrame {
                             }
                             if(instances1 > 0)
                             {
-                                LblStatus.setText("programa Aberto");
+                                LblStatus.setText("IDE "+ nomeIDE + " aberta");
                                 LblStatus.setForeground(Color.GREEN);
                                 status = 1;
                             }                                                   
@@ -233,9 +244,11 @@ public class FrPrincipal extends javax.swing.JFrame {
             {
                 LblStatus.setText("Programa Fechado");
                 LblStatus.setForeground(Color.RED);     
+               
             }
                 
         }//Metodo run
+            
     };
     Timer timer = new Timer("Timer");
      
@@ -254,9 +267,9 @@ public class FrPrincipal extends javax.swing.JFrame {
             case 0:{
                 programaVerificado = "Code.exe";
                 }break;
-            case 1:{
+           /* case 1:{
                 programaVerificado = "netbeans64.exe";
-            }break;
+            }break;*/
             case 2:{
                 programaVerificado = "eclipse.exe";
             }break;
@@ -265,18 +278,19 @@ public class FrPrincipal extends javax.swing.JFrame {
             }break;
         }
         
-        int instances = 0;
+        
         try {
             Process processo = Runtime.getRuntime().exec("wmic.exe");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(processo.getInputStream()))) {
                 OutputStreamWriter osw = new OutputStreamWriter(processo.getOutputStream());
                 //osw.write("process where name='Calculator.exe'");
+                String processResult = "process where name='"+programaVerificado+"' ";
                 osw.write("process where name='"+programaVerificado+"' ");
                 osw.flush();
                 osw.close();
                 while ((line = br.readLine()) != null) {
-                    if (line.contains("Calculator.exe")) {
-                        programaExecutado = "Calculator.exe";
+                    if (line.contains(programaVerificado)) {
+                        programaExecutado = programaVerificado;
                     }
                 }
               //  System.out.println("Existem " + instances + " processos Calculator.exe rodando");

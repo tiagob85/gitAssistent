@@ -39,26 +39,26 @@ public class Principal {
             BufferedReader input =
                     new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((line = input.readLine()) != null) {               
-                //System.out.println(line); //<-- Parse data here.
-                if(line.contains("Calculator.exe")){
-                    System.out.println("Calculadora aberta.");
+                System.out.println(line); //<-- Parse data here.
+                if(line.contains("Code.exe")){
+                    System.out.println("visual Code");
                 }
             }
             input.close();
         } catch (Exception err) {
             err.printStackTrace();
         }    */
-        /*String line;
+     /*   String line;
         int instances = 0;
         try {
             Process processo = Runtime.getRuntime().exec("wmic.exe");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(processo.getInputStream()))) {
                 OutputStreamWriter osw = new OutputStreamWriter(processo.getOutputStream());
-               // osw.write("process where name='Calculator.exe'");
+                osw.write("process where name='Code.exe'");
                 osw.flush();
                 osw.close();
                 while ((line = br.readLine()) != null) {
-                    if (line.contains("Calculator.exe")) {
+                    if (line.contains("Code.exe")) {
                         instances++;
                     }
                 }
