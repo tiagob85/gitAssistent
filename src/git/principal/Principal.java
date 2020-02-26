@@ -35,7 +35,8 @@ public class Principal {
        /*try {
             String line;
             Process p = Runtime.getRuntime().exec
-            (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+            //(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+            (System.getenv("C:") +"cd \\Users\\Tiago B");         
             BufferedReader input =
                     new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((line = input.readLine()) != null) {               
@@ -48,7 +49,7 @@ public class Principal {
         } catch (Exception err) {
             err.printStackTrace();
         }    */
-     /*   String line;
+       /* String line;
         int instances = 0;
         try {
             Process processo = Runtime.getRuntime().exec("wmic.exe");
@@ -76,7 +77,18 @@ public class Principal {
      
         long delay  = 1000L;
         long period = 2000L;
-        timer.scheduleAtFixedRate(repeatedTask, delay, period); */       
+        timer.scheduleAtFixedRate(repeatedTask, delay, period); */   
+      /*  ProcessBuilder builder = new ProcessBuilder(
+            "cmd.exe", "/c", "cd \"C:\\Users\\Tiago B\\Documents\\NetBeansProjects\\Git\" && dir");
+        builder.redirectErrorStream(true);
+        Process p = builder.start(); 
+        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while (true) {
+            line = r.readLine();
+            if (line == null) { break; }
+            System.out.println(line);
+        }     */   
         
     }
 }
