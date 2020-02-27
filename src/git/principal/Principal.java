@@ -78,8 +78,8 @@ public class Principal {
         long delay  = 1000L;
         long period = 2000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period); */   
-      /*  ProcessBuilder builder = new ProcessBuilder(
-            "cmd.exe", "/c", "cd \"C:\\Users\\Tiago B\\Documents\\NetBeansProjects\\Git\" && dir");
+    /*    ProcessBuilder builder = new ProcessBuilder(
+            "cmd.exe", "/c", "cd \"C:\\Users\\Tiago B\\Documents\\NetBeansProjects\\Git\" && git status");
         builder.redirectErrorStream(true);
         Process p = builder.start(); 
         BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -88,7 +88,7 @@ public class Principal {
             line = r.readLine();
             if (line == null) { break; }
             System.out.println(line);
-        }     */   
-        
+        }     
+        */
     }
 }

@@ -51,6 +51,8 @@ public class FrPrincipal extends javax.swing.JFrame {
         BtnStart = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Git Assistent");
@@ -119,6 +121,13 @@ public class FrPrincipal extends javax.swing.JFrame {
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
 
         jMenu1.setText("Configurações");
+
+        jMenuItem1.setText("Manutenção projetos");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Outras configurações");
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -251,7 +260,9 @@ public class FrPrincipal extends javax.swing.JFrame {
             {
                 LblStatus.setText("Programa Fechado");
                 LblStatus.setForeground(Color.RED);     
-               
+                cancel();
+                FrNotificacao obj = new FrNotificacao();
+                obj.setVisible(true);                
             }
                 
         }//Metodo run
@@ -261,7 +272,9 @@ public class FrPrincipal extends javax.swing.JFrame {
      
     long delay  = 1000L;
     long period = 2000L;
-    timer.scheduleAtFixedRate(repeatedTask, delay, period);        
+    timer.scheduleAtFixedRate(repeatedTask, delay, period);  
+    
+    
            
     }//GEN-LAST:event_BtnStartActionPerformed
 
@@ -318,6 +331,8 @@ public class FrPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel LblStatus;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
