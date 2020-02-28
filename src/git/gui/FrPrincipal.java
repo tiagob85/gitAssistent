@@ -123,6 +123,11 @@ public class FrPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Configurações");
 
         jMenuItem1.setText("Manutenção projetos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Outras configurações");
@@ -277,6 +282,12 @@ public class FrPrincipal extends javax.swing.JFrame {
     
            
     }//GEN-LAST:event_BtnStartActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        FrManutencaoProjeto obj = new FrManutencaoProjeto();
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public String verificaProgramaAberto(int idPrograma){
         String programaExecutado =  "";

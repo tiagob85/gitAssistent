@@ -33,21 +33,27 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
         BtnSair = new javax.swing.JButton();
         BtnNovoProjeto = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Manutenção de Projetos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         TblProjeto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "Processo", "Diretorio", "Nome projeto", "data atualização"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TblProjeto);
 
         BtnSair.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -120,18 +126,20 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
 
     private void BtnNovoProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNovoProjetoActionPerformed
         // TODO add your handling code here:
+        FrCadastroProjeto obj = new FrCadastroProjeto();
+        obj.setVisible(true);
     }//GEN-LAST:event_BtnNovoProjetoActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+  //  public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -146,16 +154,16 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrManutencaoProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrManutencaoProjeto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }*/
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+       /* java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrManutencaoProjeto().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnNovoProjeto;
