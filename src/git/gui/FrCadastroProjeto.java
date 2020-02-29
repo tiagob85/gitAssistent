@@ -5,11 +5,14 @@
  */
 package git.gui;
 
+import git.db.Banco;
+import git.db.InfoIde;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,7 +47,7 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
         TxtNomeProjeto = new javax.swing.JTextField();
         BtnGravar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Projetos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
@@ -144,9 +147,10 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BtnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,19 +166,27 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
 
     private void BtnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGravarActionPerformed
         // TODO add your handling code here:
-        Connection c = null;
-      
-        try{ 
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:C:\\Projetos\\dbsqlite\\dbgit.db");
-            System.out.println("Opened database successfully");
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrCadastroProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        if(!TxtNomeIde.getText().equals("") && !TxtNomeProcesso.getText().equals("") && !TxtCaminhoProjeto.getText().equals("") && !TxtNomeProjeto.getText().equals(""))
+        {
+            objIde = new InfoIde();
+            objIde.setNomeIde(TxtNomeIde.getText());
+            objIde.setNomeProcesso(TxtNomeProcesso.getText());
+            objIde.setDiretorio(TxtCaminhoProjeto.getText());
+            objIde.setNomeProjeto(TxtNomeProjeto.getText());
+            objBanco = new Banco();
+            try 
+            {                
+                objBanco.insertDados(objIde);
+                JOptionPane.showMessageDialog(null, "Dados gravados com sucesso !");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FrCadastroProjeto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }    
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Um ou mais campos não foram preenchidos !");
+            TxtNomeIde.setFocusable(true);
         }
-        this.dispose();
     }//GEN-LAST:event_BtnGravarActionPerformed
 
     private void TxtNomeIdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNomeIdeActionPerformed
@@ -224,6 +236,8 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
         });
     } */
 
+    public Banco objBanco;
+    public InfoIde objIde;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnGravar;
     private javax.swing.JTextField TxtCaminhoProjeto;

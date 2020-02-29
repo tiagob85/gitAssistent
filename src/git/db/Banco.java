@@ -9,9 +9,12 @@ import git.gui.FrCadastroProjeto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -79,5 +82,26 @@ public class Banco {
         }        
     }
     
-    
+    public DefaultTableModel RetornaDados() throws ClassNotFoundException, SQLException{
+        
+        String sql = "select id, nomeide, nomeprocesso, diretorio, nomeprojeto, dataatualizacao FROM infoide";
+        
+        Connection con = this.connect();
+        
+        Statement stmt = con.createStatement();
+        
+        ResultSet rs = stmt.executeQuery(sql);
+        
+        while(rs.next())
+        {
+            System.out.println(rs.getInt("id")+" "+rs.getString("nomeide")+" "+rs.getString("nomeprocesso"));
+        }
+        
+        
+        DefaultTableModel modelo = null;
+        
+        String[] nomeColunas = {"Id","Nome Ide", "Nome Processo", "Diretorio", "Nome Projeto", "Data Atualização"};
+        
+        return modelo;
+    }//metodo RetornaDados
 }

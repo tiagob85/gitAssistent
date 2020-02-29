@@ -22,6 +22,16 @@ public class InfoIde implements Serializable{
     
     public InfoIde(){}//Construtor
 
+    public InfoIde(int Id, String NomeIde, String NomeProcesso, String Diretorio, String NomeProjeto, Date DataAtualizacao) {
+        this.Id = Id;
+        this.NomeIde = NomeIde;
+        this.NomeProcesso = NomeProcesso;
+        this.Diretorio = Diretorio;
+        this.NomeProjeto = NomeProjeto;
+        this.DataAtualizacao = DataAtualizacao;
+    }
+    
+
     public int getId() {
         return Id;
     }
