@@ -6,6 +6,8 @@
 package git.principal;
 
 import git.classes.ListaProcessos;
+import git.db.Banco;
+import git.db.InfoIde;
 import git.gui.FrPrincipal;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -25,11 +27,11 @@ import java.util.logging.Logger;
  * @author Tiago B
  */
 public class Principal {
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
         
         FrPrincipal obj = new FrPrincipal();
         obj.setVisible(true);
-        
+
         /*ListaProcessos obj2 = new ListaProcessos("Calc.exe");
         obj2.exibeProcessos();*/
        /*try {
