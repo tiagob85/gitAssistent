@@ -85,6 +85,13 @@ public class Banco {
     public DefaultTableModel RetornaDados() throws ClassNotFoundException, SQLException{
         
         String sql = "select id, nomeide, nomeprocesso, diretorio, nomeprojeto, dataatualizacao FROM infoide";
+        String[] nomeColunas = {"Id","Nome Ide", "Nome Processo", "Diretorio", "Nome Projeto", "Data Atualização"};
+        
+        DefaultTableModel modelo = null;
+        
+        modelo = new DefaultTableModel();
+        
+        modelo.setColumnIdentifiers(nomeColunas);
         
         Connection con = this.connect();
         
@@ -95,13 +102,10 @@ public class Banco {
         while(rs.next())
         {
             System.out.println(rs.getInt("id")+" "+rs.getString("nomeide")+" "+rs.getString("nomeprocesso"));
+            modelo.addRow(new Object[]{String.valueOf(rs.getInt("id")),rs.getString("nomeide"),rs.getString("nomeprocesso"),
+                                        rs.getString("diretorio"),rs.getString("nomeprojeto"),rs.getString("dataatualizacao")});
         }
-        
-        
-        DefaultTableModel modelo = null;
-        
-        String[] nomeColunas = {"Id","Nome Ide", "Nome Processo", "Diretorio", "Nome Projeto", "Data Atualização"};
-        
+
         return modelo;
     }//metodo RetornaDados
 }

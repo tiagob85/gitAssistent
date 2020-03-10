@@ -178,6 +178,7 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
             {                
                 objBanco.insertDados(objIde);
                 JOptionPane.showMessageDialog(null, "Dados gravados com sucesso !");
+                this.dispose();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(FrCadastroProjeto.class.getName()).log(Level.SEVERE, null, ex);
             }

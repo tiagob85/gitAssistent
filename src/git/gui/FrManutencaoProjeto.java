@@ -5,6 +5,11 @@
  */
 package git.gui;
 
+import git.db.Banco;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Tiago B
@@ -14,8 +19,10 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
     /**
      * Creates new form FrManutencaoProjeto
      */
-    public FrManutencaoProjeto() {
+    public FrManutencaoProjeto() throws ClassNotFoundException, SQLException {
         initComponents();
+        objBanco = new Banco();
+        TblProjeto.setModel(objBanco.RetornaDados());
     }
 
     /**
@@ -32,6 +39,7 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
         TblProjeto = new javax.swing.JTable();
         BtnSair = new javax.swing.JButton();
         BtnNovoProjeto = new javax.swing.JButton();
+        BtnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Manutenção de Projetos");
@@ -72,6 +80,14 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
             }
         });
 
+        BtnAtualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        BtnAtualizar.setText("Atualizar");
+        BtnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -80,11 +96,14 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 581, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnNovoProjeto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(BtnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnNovoProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(BtnSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -92,7 +111,9 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(BtnNovoProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BtnNovoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(BtnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -130,6 +151,17 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
         obj.setVisible(true);
     }//GEN-LAST:event_BtnNovoProjetoActionPerformed
 
+    private void BtnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAtualizarActionPerformed
+        try {
+            // TODO add your handling code here:
+            TblProjeto.setModel(objBanco.RetornaDados());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrManutencaoProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrManutencaoProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnAtualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -164,8 +196,10 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
             }
         });
     }*/
-
+    
+    Banco objBanco;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAtualizar;
     private javax.swing.JButton BtnNovoProjeto;
     private javax.swing.JButton BtnSair;
     private javax.swing.JTable TblProjeto;
