@@ -12,6 +12,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,8 +26,11 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
     /**
      * Creates new form FrCadastroProjeto
      */
-    public FrCadastroProjeto() {
+    public FrCadastroProjeto() throws ClassNotFoundException, SQLException {
         initComponents();
+        objBanco = new Banco();
+        DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(objBanco.retornaIde().toArray());
+        ComboIde.setModel(defaultComboBox);
     }
 
     /**
@@ -38,13 +44,11 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        TxtNomeIde = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        TxtNomeProcesso = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         TxtCaminhoProjeto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         TxtNomeProjeto = new javax.swing.JTextField();
+        ComboIde = new javax.swing.JComboBox<>();
         BtnGravar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,24 +58,7 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
         jPanel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Nome da IDE");
-
-        TxtNomeIde.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        TxtNomeIde.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtNomeIdeActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Nome do processo");
-
-        TxtNomeProcesso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        TxtNomeProcesso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtNomeProcessoActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Selecione a IDE");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Caminho do projeto");
@@ -88,41 +75,30 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
             }
         });
 
+        ComboIde.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(TxtCaminhoProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(TxtNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtNomeIde, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtNomeProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))))
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addComponent(TxtCaminhoProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel1)
+                    .addComponent(ComboIde, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TxtNomeProjeto))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtNomeIde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtNomeProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ComboIde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -166,41 +142,47 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
 
     private void BtnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGravarActionPerformed
         // TODO add your handling code here:
-        if(!TxtNomeIde.getText().equals("") && !TxtNomeProcesso.getText().equals("") && !TxtCaminhoProjeto.getText().equals("") && !TxtNomeProjeto.getText().equals(""))
-        {
-            objIde = new InfoIde();
-            objIde.setNomeIde(TxtNomeIde.getText());
-            objIde.setNomeProcesso(TxtNomeProcesso.getText());
-            objIde.setDiretorio(TxtCaminhoProjeto.getText());
-            objIde.setNomeProjeto(TxtNomeProjeto.getText());
-            objBanco = new Banco();
-            try 
-            {                
-                objBanco.insertDados(objIde);
-                JOptionPane.showMessageDialog(null, "Dados gravados com sucesso !");
-                this.dispose();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(FrCadastroProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        if(ComboIde.getSelectedIndex() != 0){
+            if(!TxtCaminhoProjeto.getText().equals("") && !TxtNomeProjeto.getText().equals(""))
+            {
+                objIde = new InfoIde();
+                objBanco = new Banco();
+               /* objIde.setNomeIde(TxtNomeIde.getText());
+                objIde.setNomeProcesso(TxtNomeProcesso.getText());*/
+                try {
+                    //Dados inseridos a partir do combo.
+                    objIde.setNomeIde(objBanco.retornaInfoIde(ComboIde.getSelectedIndex(), 1));
+                    objIde.setNomeProcesso(objBanco.retornaInfoIde(ComboIde.getSelectedIndex(), 2));
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrCadastroProjeto.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FrCadastroProjeto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                objIde.setDiretorio(TxtCaminhoProjeto.getText());
+                objIde.setNomeProjeto(TxtNomeProjeto.getText());
+
+                try 
+                {                
+                    objBanco.insertDados(objIde);
+                    JOptionPane.showMessageDialog(null, "Dados gravados com sucesso !");
+                    this.dispose();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FrCadastroProjeto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }    
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Um ou mais campos não foram preenchidos !");
             }
-        }    
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Um ou mais campos não foram preenchidos !");
-            TxtNomeIde.setFocusable(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "IDE não selecionada !");
         }
     }//GEN-LAST:event_BtnGravarActionPerformed
-
-    private void TxtNomeIdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNomeIdeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtNomeIdeActionPerformed
 
     private void TxtNomeProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNomeProjetoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtNomeProjetoActionPerformed
-
-    private void TxtNomeProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNomeProcessoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtNomeProcessoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,12 +223,10 @@ public class FrCadastroProjeto extends javax.swing.JFrame {
     public InfoIde objIde;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnGravar;
+    private javax.swing.JComboBox<String> ComboIde;
     private javax.swing.JTextField TxtCaminhoProjeto;
-    private javax.swing.JTextField TxtNomeIde;
-    private javax.swing.JTextField TxtNomeProcesso;
     private javax.swing.JTextField TxtNomeProjeto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

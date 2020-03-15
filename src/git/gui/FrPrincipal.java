@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Timer;
@@ -153,10 +154,10 @@ public class FrPrincipal extends javax.swing.JFrame {
 
     private void BtnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStartActionPerformed
        /*
-        0 - Code.exe         - Visual Code
-        1 - netbeans64.exe   - NetBeans
-        2 - eclipse.exe      - Eclipse
-        3 - Calculator.exe   - Calculadora
+        1 - Code.exe         - Visual Code
+        2 - netbeans64.exe   - NetBeans
+        3 - eclipse.exe      - Eclipse
+        4 - Calculator.exe   - Calculadora
         */
         /*String programa = "";
        
@@ -165,7 +166,9 @@ public class FrPrincipal extends javax.swing.JFrame {
             programa = verificaProgramaAberto();
         }*/
        
-        
+        /*
+        - Alteração dos id's dos programas. 15/03/2020.
+         */
         LblStatus.setForeground(Color.RED);
         TimerTask repeatedTask = new TimerTask() 
         {
@@ -177,7 +180,7 @@ public class FrPrincipal extends javax.swing.JFrame {
             public int idPrograma = -1;
             public int instances = 0;
             public int instances1 = 0; 
-            public int contador = 0;
+            public int contador = 1;
             
             public void run() 
             {       
@@ -187,7 +190,7 @@ public class FrPrincipal extends javax.swing.JFrame {
                     while(programa.equals(""))/*Verifica se algum programa esta execução.*/
                     {
                         //for(int contador = 0;contador<4;contador++){
-                        while((contador<4)&&programa.equals("")){    
+                        while((contador<5)&&programa.equals("")){    
                             programa = verificaProgramaAberto(contador);
                             if(!programa.equals(""))
                             {
@@ -198,7 +201,7 @@ public class FrPrincipal extends javax.swing.JFrame {
                             contador = contador+1;
                         }
                     }
-                    contador = 0;//resetando o contador.
+                    contador = 1;//resetando o contador.
                 }
                 else
                 {
@@ -210,16 +213,16 @@ public class FrPrincipal extends javax.swing.JFrame {
                 {                    
                     switch(idPrograma)
                     {
-                        case 0:{
+                        case 1:{
                             nomeIDE = "Visual Studio Code";
                         }break;
-                      /*  case 1:{
+                      /*  case 2:{
                             nomeIDE = "NetBeans 8.2";
                         }break;*/
-                        case 2:{
+                        case 3:{
                             nomeIDE = "Eclipse";
                         }break;
-                        case 3:{                          
+                        case 4:{                          
                             nomeIDE = "Calculadora";
                         }break;
                     }
@@ -285,7 +288,15 @@ public class FrPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        FrManutencaoProjeto obj = new FrManutencaoProjeto();
+        //Alterações para abrir e fechar janelas.
+        FrManutencaoProjeto obj = null;
+        try {
+            obj = new FrManutencaoProjeto();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -295,16 +306,16 @@ public class FrPrincipal extends javax.swing.JFrame {
         String line;
         
         switch(idPrograma){
-            case 0:{
+            case 1:{
                 programaVerificado = "Code.exe";
                 }break;
-           /* case 1:{
+           /* case 2:{
                 programaVerificado = "netbeans64.exe";
             }break;*/
-            case 2:{
+            case 3:{
                 programaVerificado = "eclipse.exe";
             }break;
-            case 3:{
+            case 4:{
                 programaVerificado = "Calculator.exe";
             }break;
         }

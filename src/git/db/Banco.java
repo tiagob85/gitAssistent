@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -108,4 +110,60 @@ public class Banco {
 
         return modelo;
     }//metodo RetornaDados
+    
+    //Metodo para alimentar combo.
+    public List<String> retornaIde() throws ClassNotFoundException, SQLException{
+        
+        List listaide = new ArrayList();
+        
+        int contador = 1;
+        
+        Connection con = this.connect();
+        
+        String sql = "select nome from ide order by id";
+        
+        Statement stmt = con.createStatement();
+        
+        ResultSet rs = stmt.executeQuery(sql);
+        
+        listaide.add("Selecione a IDE");
+        
+        while(rs.next()){
+            listaide.add(rs.getString("nome"));            
+        }
+        
+        return listaide;
+    }//Metodo retornaIde;
+    
+    public String retornaInfoIde(int codigoIde, int indexColuna) throws ClassNotFoundException, SQLException{
+        //Metodo recebe o código da IDE, a posição da coluna que deve retornar o valor.
+        
+        Connection con = this.connect();
+        
+        String sql = "select id, nome, processo from ide where id = ? order by id";
+        
+        String dados = null;
+        
+       // Statement stmt = con.createStatement();
+        
+        PreparedStatement stmt = con.prepareStatement(sql);
+        
+        stmt.setInt(1, codigoIde);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            if(indexColuna == 1){
+                dados = rs.getString("nome");
+            }
+            else{
+                dados = rs.getString("processo");
+            }
+        }
+        
+        
+        return dados;
+    }//metodo retronaInfoIde
+    
+    
 }

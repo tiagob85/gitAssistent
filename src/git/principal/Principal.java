@@ -8,6 +8,7 @@ package git.principal;
 import git.classes.ListaProcessos;
 import git.db.Banco;
 import git.db.InfoIde;
+import git.gui.FrNotificacao;
 import git.gui.FrPrincipal;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -31,7 +32,6 @@ public class Principal {
         
         FrPrincipal obj = new FrPrincipal();
         obj.setVisible(true);
-
         /*ListaProcessos obj2 = new ListaProcessos("Calc.exe");
         obj2.exibeProcessos();*/
        /*try {

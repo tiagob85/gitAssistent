@@ -143,11 +143,20 @@ public class FrManutencaoProjeto extends javax.swing.JFrame {
 
     private void BtnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSairActionPerformed
         // TODO add your handling code here:
+        //Fechar a tela de cadastro.
+        this.dispose();
     }//GEN-LAST:event_BtnSairActionPerformed
 
     private void BtnNovoProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNovoProjetoActionPerformed
         // TODO add your handling code here:
-        FrCadastroProjeto obj = new FrCadastroProjeto();
+        FrCadastroProjeto obj = null;
+        try {
+            obj = new FrCadastroProjeto();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrManutencaoProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrManutencaoProjeto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         obj.setVisible(true);
     }//GEN-LAST:event_BtnNovoProjetoActionPerformed
 
